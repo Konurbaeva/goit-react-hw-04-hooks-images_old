@@ -1,19 +1,31 @@
+import styled from 'styled-components';
+
 function Searchbar({ onSubmit }) {
     return (<header className="searchbar">
         <form className="form" onSubmit={onSubmit}>
-            <button type="submit" className="button">
-                <span className="button-label">Search</span>
-            </button>
 
-            <input
+            <Input
                 className="input"
                 type="text"
                 autoComplete="off"
                 autoFocus
                 placeholder="Search images and photos"
             />
+
+            <button type="submit" className="button">
+                <span className="button-label">Search</span>
+            </button>
+
         </form>
     </header>);
 }
+
+const Input = styled.input`
+padding: 0.5em;
+color: ${props => props.inputColor || "teal"};
+background: papayawhip;
+border: none;
+border-radius: 3px;
+`;
 
 export default Searchbar;

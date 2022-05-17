@@ -13,19 +13,22 @@ const query = "cat";
 export class App extends Component {
     state = {
         hits: [],
+        value: '',
     };
 
     async componentDidMount() {
         const response = await axios.get(`?q=${query}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`);
-
-        //  console.log('results: ' + JSON.stringify(response));
-
         console.log(' response.data.hits: ' + JSON.stringify(response.data.hits));
         this.setState({ hits: response.data.hits });
     }
 
-    async handleSubmit() {
-        console.log('handleSubmit: ')
+    async handleChange(e) {
+        this.setState({ value: e.target.value });
+    }
+
+    async handleSubmit(e) {
+        console.log('A name was submitted: ' + this.state.value);
+        e.preventDefault();
     }
 
     render() {
@@ -33,6 +36,7 @@ export class App extends Component {
         return (
             <div>
                 {/* <ImageGallery id={id} webformatURL={webformatURL} largeImageURL={largeImageURL} /> */}
+
                 <Searchbar onSubmit={this.handleSubmit} />
                 <ImageGallery hits={this.state.hits} />
             </div>

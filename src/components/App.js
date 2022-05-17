@@ -32,11 +32,8 @@ export class App extends Component {
     }
 
     render() {
-        // const { id, webformatURL, largeImageURL } = this.state;
         return (
             <div>
-                {/* <ImageGallery id={id} webformatURL={webformatURL} largeImageURL={largeImageURL} /> */}
-
                 <Searchbar onSubmit={this.handleSubmit} />
                 <ImageGallery hits={this.state.hits} />
             </div>

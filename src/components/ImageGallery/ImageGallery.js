@@ -1,15 +1,9 @@
-// function ImageGallery({ id, webformatURL, largeImageURL }) {
+import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 
-//     return (<ul className="gallery">
-//         {hits.map(hit => (
-//           <li>{hit.id}</li>
-//           <li>{hit.webformatURL}</li>
-//           <li>{hit.largeImageURL}</li>
-//         ))}
-//     </ul>);
-// }
 
 function ImageGallery({ hits }) {
+
+    console.log('HITS ID ' + JSON.stringify(hits))
 
     return (<ul className="gallery">
         {hits.map(hit => (
@@ -17,6 +11,7 @@ function ImageGallery({ hits }) {
                 <li>{hit.id}</li>
                 <li>{hit.webformatURL}</li>
                 <li>{hit.largeImageURL}</li>
+                <ImageGalleryItem src={hit.largeImageURL} />
             </>
         ))}
     </ul>);

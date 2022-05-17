@@ -33,8 +33,8 @@ export class App extends Component {
         return (
             <div>
                 {/* <ImageGallery id={id} webformatURL={webformatURL} largeImageURL={largeImageURL} /> */}
-                <ImageGallery hits={this.state.hits} />
                 <Searchbar onSubmit={this.handleSubmit} />
+                <ImageGallery hits={this.state.hits} />
             </div>
         );
     }

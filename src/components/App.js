@@ -2,6 +2,7 @@ import { Component } from "react";
 import axios from "axios";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
+import Loader from "./Loader/Loader";
 
 
 // FULL https://pixabay.com/api/?key=25748459-63f23aee85add1030efa422f3&q=cat&image_type=photo&orientation=horizontal&per_page=12
@@ -14,6 +15,7 @@ export class App extends Component {
     state = {
         hits: [],
         value: '',
+        isLoading: false,
     };
 
     async componentDidMount() {
@@ -32,10 +34,13 @@ export class App extends Component {
     }
 
     render() {
+        const { isLoading } = this.state;
+
         return (
             <div>
                 <Searchbar onSubmit={this.handleSubmit} />
                 <ImageGallery hits={this.state.hits} />
+                {isLoading ? <p>Loading...</p> : <Loader />}
             </div>
         );
     }

@@ -1,5 +1,9 @@
 function Loader() {
-    return (<></>);
+    return (
+        <>
+            <p>TTT</p>
+        </>
+    );
 }
 
 export default Loader;

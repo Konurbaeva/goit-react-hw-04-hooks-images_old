@@ -12,9 +12,9 @@ function Searchbar({ onSubmit }) {
                 placeholder="Search images and photos"
             />
 
-            <button type="submit" className="button">
+            <Button type="submit" className="button">
                 <span className="button-label">Search</span>
-            </button>
+            </Button>
 
         </form>
     </header>);
@@ -27,5 +27,14 @@ background: papayawhip;
 border: none;
 border-radius: 3px;
 `;
+
+const Button = styled.button`
+  background: ${props => props.primary ? "teal" : "white"};
+  color: ${props => props.primary ? "teal" : "palevioletred"};
+  font-size: 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+`;
+
 
 export default Searchbar;

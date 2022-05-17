@@ -25,3 +25,9 @@ code {
 
   justify-content: center;
 }
+
+.button{
+  display: block;
+  margin : 0 auto;
+  position: relative;
+}

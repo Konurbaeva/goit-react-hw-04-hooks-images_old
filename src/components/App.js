@@ -18,7 +18,7 @@ export class App extends Component {
 
     async componentDidMount() {
         const response = await axios.get(`?q=${query}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`);
-        console.log(' response.data.hits: ' + JSON.stringify(response.data.hits));
+
         this.setState({ hits: response.data.hits });
     }
 

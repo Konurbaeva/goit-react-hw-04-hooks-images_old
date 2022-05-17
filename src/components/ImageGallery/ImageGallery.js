@@ -1,6 +1,9 @@
-function ImageGallery() {
+function ImageGallery({ id, webformatURL, largeImageURL }) {
+
     return (<ul className="gallery">
-        <li></li>
+        <li>
+
+        </li>
     </ul>);
 }
 

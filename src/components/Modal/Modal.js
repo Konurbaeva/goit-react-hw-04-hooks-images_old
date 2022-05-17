@@ -1,6 +1,6 @@
-function Modal() {
+function Modal({ onClose }) {
     return (<div className="overlay">
-        <div className="modal">
+        <div className="modal" onClose={onClose}>
             <img src="" alt="" />
         </div>
     </div>);

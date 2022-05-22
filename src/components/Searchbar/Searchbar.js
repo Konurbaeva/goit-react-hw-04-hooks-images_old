@@ -5,7 +5,6 @@ function Searchbar({ onSubmit }) {
         <div className={style.container}>
             <header className="searchbar">
                 <form className="form" onSubmit={onSubmit}>
-
                     <input
                         className="input"
                         type="text"
@@ -13,7 +12,6 @@ function Searchbar({ onSubmit }) {
                         autoFocus
                         placeholder="Search images and photos"
                     />
-
                     <button type="submit" className="button">
                         <span className="button-label">Search</span>
                     </button>

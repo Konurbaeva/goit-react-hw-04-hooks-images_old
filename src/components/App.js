@@ -8,32 +8,28 @@ import { getSearch } from "services/api";
 export class App extends Component {
     state = {
         hits: [],
-        query: '',
+        searchQuery: '',
         isLoading: false,
         showModal: true,
         galleryPage: 1,
+        error: ''
+    };
+
+    handleFormSubmit = queryFromSearchbar => {
+        this.setState({ searchQuery: queryFromSearchbar });
     };
 
     componentDidMount() {
         this.setState({ isLoading: true });
 
         try {
-            // getSearch('Nature')
-            //     .then(response => response.json())
-            //     .then(hits => this.setState({ hits: hits }))
-
-
-            //  const hits = getSearch(this.state.query)
-            // .then(response => response.json())
-            // .then(hits => this.setState({ hits }))
-            // .error(error => console.error(error))
-
-            const resp = getSearch(this.state.query)
-            const hits = resp.json()
-            this.setState({ hits })
+            const hits = getSearch(this.state.searchQuery)
+                .then(response => console.log(response))
+                .then(hits => this.setState({ hits: hits }))
+                .error(error => console.error(error))
 
             console.log('GET SEARCH: ' + hits)
-            //  this.setState({ hits });
+            this.setState({ hits });
 
         } catch (error) {
             this.setState({ error });
@@ -43,22 +39,12 @@ export class App extends Component {
     }
 
     render() {
-        const { query, showModal, hits } = this.state;
-        console.log('HITS in APP: ###############' + hits)
+        const { showModal, hits } = this.state;
 
         return (
             <div>
                 {showModal && <Modal />}
-                <Searchbar
-                    onSubmit={this.handleSubmit}
-                    value={query}
-                    onChange={this.handleChange}
-
-                // onChange={(e) => this.setState(e.target.value)}
-                //  onChange={(e) => this.setState({ query: e.currentTarget.value })}
-                // onChange={(e) => this.setState(e.currentTarget.value)}
-
-                />
+                <Searchbar onSubmit={this.handleFormSubmit} />
                 <ImageGallery hits={hits} />
             </div>
         );

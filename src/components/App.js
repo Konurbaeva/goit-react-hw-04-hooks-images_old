@@ -14,18 +14,6 @@ export class App extends Component {
         galleryPage: 1,
     };
 
-    handleChange = e => {
-        this.setState({ query: e.target.value });
-    };
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.onSubmit(this.state.query);
-
-        // reset query?
-        //  this.setState({ query: '' });
-    };
-
     componentDidMount() {
         this.setState({ isLoading: true });
 

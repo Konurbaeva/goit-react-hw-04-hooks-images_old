@@ -33,7 +33,7 @@ export class App extends Component {
 
     render() {
         const { showModal, hits } = this.state;
-        console.log('HITS: ###############' + hits)
+        console.log('HITS in APP: ###############' + hits)
 
         return (
             <div>

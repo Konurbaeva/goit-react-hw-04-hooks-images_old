@@ -1,28 +1,19 @@
-import { Component } from "react";
+
 import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 
-
-// function ImageGallery({ hits }) {
-//     return (<ul className="gallery">
-//         {hits.map(hit => (
-//             <>
-//                 <ImageGalleryItem src={hit.webformatURL} />
-//             </>
-//         ))}
-//     </ul>);
-// }
-
-class ImageGallery extends Component {
-    render() {
-        return (<ul className="gallery">
-            {this.props.hits.map(hit => (
-                <>
-                    <ImageGalleryItem src={hit.webformatURL} />
-                </>
+function ImageGallery({ images }) {
+    console.log('IMAGE GALLERY: ' + images)
+    return (
+        <ul>
+            {images.map(({ id, webformatURL, tags }) => (
+                <ImageGalleryItem
+                    key={id}
+                    webImage={webformatURL}
+                    description={tags}
+                />
             ))}
-        </ul>);
-    }
+        </ul>
+    );
 }
-
 
 export default ImageGallery;

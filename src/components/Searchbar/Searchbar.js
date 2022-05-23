@@ -1,6 +1,6 @@
 import style from './Searchbar.module.css'
 
-function Searchbar({ onSubmit }) {
+function Searchbar({ onSubmit, value, onChangeHandler }) {
     return (
         <div className={style.container}>
             <header className="searchbar">
@@ -11,6 +11,8 @@ function Searchbar({ onSubmit }) {
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
+                        value={value}
+                        onChange={onChangeHandler}
                     />
                     <button type="submit" className="button">
                         <span className="button-label">Search</span>

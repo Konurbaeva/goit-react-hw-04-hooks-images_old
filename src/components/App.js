@@ -18,12 +18,22 @@ export class App extends Component {
         this.setState({ query: e.currentTarget.value });
     };
 
+    handleSubmit = e => {
+        e.preventDefault();
+        this.onSubmit(this.state.query);
+        // reset query?
+        //  this.setState({ query: '' });
+    };
+
     componentDidMount() {
         this.setState({ isLoading: true });
 
         try {
-            const hits = getSearch('Nature');
-            this.setState({ hits });
+            getSearch('Nature')
+                .then(response => response.json())
+                .then(hits => this.setState({ hits: hits }))
+
+            // this.setState({ hits });
         } catch (error) {
             this.setState({ error });
         } finally {
@@ -32,7 +42,7 @@ export class App extends Component {
     }
 
     render() {
-        const { showModal, hits } = this.state;
+        const { query, showModal, hits } = this.state;
         console.log('HITS in APP: ###############' + hits)
 
         return (
@@ -40,12 +50,15 @@ export class App extends Component {
                 {showModal && <Modal />}
                 <Searchbar
                     onSubmit={this.handleSubmit}
-                    value={this.state.query}
+                    value={query}
                     // onChange={(e) => this.setState(e.target.value)}
                     onChange={this.handleChange}
+                //  onChange={(e) => this.setState({ query: e.currentTarget.value })}
+
+                // onChange={(e) => this.setState(e.currentTarget.value)}
 
                 />
-                <ImageGallery hits={this.state.hits} />
+                <ImageGallery hits={hits} />
             </div>
         );
     }

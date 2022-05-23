@@ -23,10 +23,6 @@ export class App extends Component {
         this.setState({ isLoading: true });
 
         try {
-            // const hits = getSearch(this.state.searchQuery)
-            //     .then(response => console.log(response))
-            //     .then(hits => this.setState({ hits }))
-            //     .error(error => console.error(error))
 
             const hits = getSearch(this.state.searchQuery)
                 .then(hits => this.setState({ hits: hits }))

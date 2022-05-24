@@ -7,16 +7,19 @@ class Searchbar extends Component {
         searchQuery: '',
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.onSubmit(this.state.searchQuery);
+        this.reset();
+    };
+
+    reset = () => {
+        this.setState({ searchQuery: '' });
+    };
+
     handleChange = e => {
         this.setState({ searchQuery: e.target.value });
     };
-
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.onSubmit(this.state.searchQuery)
-    };
-
 
     render() {
         return (

@@ -16,14 +16,9 @@ export class App extends Component {
     };
 
     handleFormSubmit = queryFromSearchbar => {
-        console.log('handleSubmit: ')
+        console.log('queryFromSearchbar ', queryFromSearchbar)
         this.setState({ searchQuery: queryFromSearchbar });
     };
-
-    // handleFormSubmit = searchQuery => {
-    //     console.log('handleSubmit: ')
-    //     this.setState({ searchQuery });
-    // };
 
     componentDidMount() {
         this.setState({ isLoading: true });

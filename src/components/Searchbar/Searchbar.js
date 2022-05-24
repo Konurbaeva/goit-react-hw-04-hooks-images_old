@@ -18,7 +18,7 @@ class Searchbar extends Component {
     };
 
     handleChange = e => {
-        this.setState({ searchQuery: e.target.value });
+        this.setState({ searchQuery: e.currentTarget.value });
     };
 
     render() {

@@ -2,12 +2,11 @@
 import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 
 function ImageGallery({ images }) {
-    console.log('IMAGE GALLERY: ' + images)
+    console.log('IMAGE GALLERY: ' + JSON.stringify(images))
     return (
         <ul>
-            {images.map(({ id, webformatURL, tags }) => (
+            {images.map(({ webformatURL, tags }) => (
                 <ImageGalleryItem
-                    key={id}
                     webImage={webformatURL}
                     description={tags}
                 />

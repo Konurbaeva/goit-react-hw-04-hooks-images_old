@@ -5,11 +5,10 @@
 //         </li>);
 // }
 
-function ImageGalleryItem({ key, webImage, description }) {
+function ImageGalleryItem({ webImage, description }) {
     return (
-        <li className="gallery-item" key={key} >
+        <li className="gallery-item" >
             <img src={webImage} alt={description} />
-            {webImage}
         </li>);
 }
 

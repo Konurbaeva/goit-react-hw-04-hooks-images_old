@@ -4,7 +4,7 @@ import Searchbar from "./Searchbar/Searchbar";
 // import Loader from "./Loader/Loader";
 // import Modal from "./Modal/Modal";
 
-// import { getSearch } from "services/api"
+import { getSearch } from "services/api"
 
 export class App extends Component {
     state = {
@@ -16,6 +16,18 @@ export class App extends Component {
         console.log('queryFromSearchbar ', queryFromSearchbar)
         this.setState({ searchQuery: queryFromSearchbar });
     };
+
+    componentDidUpdate(prevState) {
+        const { searchQuery } = this.state;
+
+        if (prevState.searchQuery !== searchQuery) {
+
+            const hitsResults = getSearch(this.state.searchQuery)
+            // .then(response => this.setState({ hits: response }))
+
+            console.log(hitsResults);
+        }
+    }
 
     render() {
 

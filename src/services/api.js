@@ -8,7 +8,6 @@ export const getSearch = async (searchQuery, per_page = 10) => {
     // const response = await axios.get(
     //     `?q=${searchQuery}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
     // )
-
     //?key=25748459-63f23aee85add1030efa422f3&q=cat&image_type=photo&orientation=horizontal&per_page=12
 
     const response = await axios.get(

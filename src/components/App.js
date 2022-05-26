@@ -4,14 +4,12 @@ import Searchbar from "./Searchbar/Searchbar";
 // import Loader from "./Loader/Loader";
 // import Modal from "./Modal/Modal";
 
+// import { getSearch } from "services/api"
+
 export class App extends Component {
     state = {
         hits: [],
         searchQuery: '',
-        isLoading: false,
-        showModal: true,
-        galleryPage: 1,
-        error: ''
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -20,12 +18,10 @@ export class App extends Component {
     };
 
     render() {
-        //  const { showModal } = this.state;
 
         return (
             <div>
                 <style>{'body { background-color: teal; }'}</style>
-                {/* {showModal && <Modal />} */}
                 <Searchbar onSubmit={this.handleFormSubmit} />
                 <ImageGallery images={this.state.hits} />
             </div>

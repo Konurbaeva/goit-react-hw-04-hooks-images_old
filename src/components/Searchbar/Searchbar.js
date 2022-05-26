@@ -1,36 +1,11 @@
 import { Component } from 'react';
 import style from './Searchbar.module.css'
-import { getSearch } from "services/api";
 
 
 class Searchbar extends Component {
     state = {
         searchQuery: '',
     }
-
-
-    componentDidUpdate(prevProps, prevState) {
-        const { searchQuery } = this.state;
-        this.setState({ isLoading: true });
-        if (prevState.searchQuery !== searchQuery) {
-            try {
-                const hits = getSearch(this.state.searchQuery)
-                // .then(hits => this.setState({ hits: hits }))
-                //  .error(error => console.error(error));
-                this.setState({ hits: hits });
-            } catch (error) {
-                this.setState({ error });
-            } finally {
-                this.setState({ isLoading: false });
-            }
-        }
-
-        // window.scrollTo({
-        //     top: document.documentElement.scrollHeight,
-        //     behavior: 'smooth',
-        // });
-    }
-
 
     handleSubmit = (e) => {
         e.preventDefault();

@@ -19,20 +19,6 @@ export class App extends Component {
         this.setState({ searchQuery: queryFromSearchbar });
     };
 
-    // componentDidUpdate(prevState) {
-    //     const { searchQuery } = this.state;
-
-    //     console.log('prevState', prevState)
-    //     console.log('prevState.searchQuery', prevState.searchQuery)
-    //     console.log('searchQuery', searchQuery)
-
-    //     if (prevState.searchQuery !== searchQuery) {
-
-    //         getSearch(this.state.searchQuery)
-    //         //    .then(hits => this.setState({ hits }))
-    //     }
-    // }
-
     componentDidUpdate(prevProps, prevState) {
         const { searchQuery } = this.state;
 
@@ -63,11 +49,10 @@ export class App extends Component {
         return (
             <div>
                 <Container>
-                    <button type="button" onClick={this.toggleModal}>Open modal</button>
                     {showModal && (
                         <Modal onClose={this.toggleModal}>
                             <Searchbar onSubmit={this.handleFormSubmit} />
-                            <ImageGallery images={this.state.hits} /></Modal>
+                            <ImageGallery images={this.state.hits} onClick={this.toggleModal} /></Modal>
                     )} </Container>
             </div>
         );

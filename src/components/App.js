@@ -22,24 +22,6 @@ export class App extends Component {
         this.setState({ searchQuery: queryFromSearchbar });
     };
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     const { searchQuery, page } = this.state;
-
-    //     // console.log('prevState', prevState)
-    //     // console.log('prevState.searchQuery', prevState.searchQuery)
-    //     // console.log('searchQuery', searchQuery)
-
-    //     if (prevState.searchQuery !== searchQuery) {
-    //         getSearch(searchQuery, page)
-    //             .then(hits => this.setState({ hits }))
-    //             .catch(error => console.log(error));
-    //     }
-
-    //     if (prevState.page !== page) {
-    //         this.loadMore();
-    //     }
-    // }
-
     componentDidUpdate(prevProps, prevState) {
         const prevPage = prevState.page;
         const nextPage = this.state.page;

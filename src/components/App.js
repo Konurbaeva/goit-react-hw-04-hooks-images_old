@@ -41,11 +41,9 @@ export class App extends Component {
         console.log('searchQuery', searchQuery)
 
         if (prevState.searchQuery !== searchQuery) {
-            setTimeout(() => {
-                getSearch(this.state.searchQuery)
-                    .then(hits => this.setState({ hits }))
-                    .catch(error => console.log(error));
-            }, 3000);
+            getSearch(this.state.searchQuery)
+                .then(hits => this.setState({ hits }))
+                .catch(error => console.log(error));
         }
     }
 
@@ -65,20 +63,12 @@ export class App extends Component {
         return (
             <div>
                 <Container>
+                    <button type="button" onClick={this.toggleModal}>Open modal</button>
                     {showModal && (
-                        <Modal onClose={this.toggleModal} />
+                        <Modal onClose={this.toggleModal}>
+                            <Searchbar onSubmit={this.handleFormSubmit} />
+                            <ImageGallery images={this.state.hits} /></Modal>
                     )} </Container>
-                {/* {showModal && (
-                    <Modal onClose={this.toggleModal}>
-                        <style>{'body { background-color: teal; }'}</style>
-                        <Searchbar onSubmit={this.handleFormSubmit} />
-                        <ImageGallery images={this.state.hits} />
-                    </Modal>
-                )} */}
-
-                {/* <style>{'body { background-color: teal; }'}</style>
-                <Searchbar onSubmit={this.handleFormSubmit} />
-                <ImageGallery images={this.state.hits} /> */}
             </div>
         );
     }

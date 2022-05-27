@@ -5,7 +5,7 @@ import Searchbar from "./Searchbar/Searchbar";
 // import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
-// import Container from "./Container";
+import Container from "./Container";
 
 export class App extends Component {
     state = {
@@ -25,15 +25,16 @@ export class App extends Component {
     componentDidUpdate(prevProps, prevState) {
         const { searchQuery, page } = this.state;
 
-        console.log('prevState', prevState)
-        console.log('prevState.searchQuery', prevState.searchQuery)
-        console.log('searchQuery', searchQuery)
+        // console.log('prevState', prevState)
+        // console.log('prevState.searchQuery', prevState.searchQuery)
+        // console.log('searchQuery', searchQuery)
 
         if (prevState.searchQuery !== searchQuery) {
             getSearch(searchQuery, page)
                 .then(hits => this.setState({ hits }))
                 .catch(error => console.log(error));
         }
+
         if (prevState.page !== page) {
             this.loadMore();
         }

@@ -22,23 +22,57 @@ export class App extends Component {
         this.setState({ searchQuery: queryFromSearchbar });
     };
 
+    // componentDidUpdate(prevProps, prevState) {
+    //     const { searchQuery, page } = this.state;
+
+    //     // console.log('prevState', prevState)
+    //     // console.log('prevState.searchQuery', prevState.searchQuery)
+    //     // console.log('searchQuery', searchQuery)
+
+    //     if (prevState.searchQuery !== searchQuery) {
+    //         getSearch(searchQuery, page)
+    //             .then(hits => this.setState({ hits }))
+    //             .catch(error => console.log(error));
+    //     }
+
+    //     if (prevState.page !== page) {
+    //         this.loadMore();
+    //     }
+    // }
+
     componentDidUpdate(prevProps, prevState) {
-        const { searchQuery, page } = this.state;
+        const prevPage = prevState.page;
+        const nextPage = this.state.page;
 
-        // console.log('prevState', prevState)
-        // console.log('prevState.searchQuery', prevState.searchQuery)
-        // console.log('searchQuery', searchQuery)
-
-        if (prevState.searchQuery !== searchQuery) {
-            getSearch(searchQuery, page)
-                .then(hits => this.setState({ hits }))
-                .catch(error => console.log(error));
-        }
-
-        if (prevState.page !== page) {
-            this.loadMore();
+        if (prevPage !== nextPage) {
+            this.loadUsers();
         }
     }
+
+    loadUsers = () => {
+        const { page } = this.state;
+
+        this.setState({ isLoading: true });
+
+        getSearch(this.state.searchQuery, page)
+            .then((hits) => {
+                this.setState({ hits: hits, errorMsg: '' });
+            })
+            .catch((error) =>
+                this.setState({
+                    errorMsg: 'Error while loading data. Try again later.'
+                })
+            )
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
+    };
+
+    loadMore = () => {
+        this.setState((prevState) => ({
+            page: prevState.page + 1
+        }));
+    };
 
 
     handleModalDialog = () => {
@@ -52,27 +86,20 @@ export class App extends Component {
         }));
     };
 
-    loadMore = () => {
-        this.setState((prevState) => ({
-            page: prevState.page + 1
-        }));
-    };
 
     render() {
         // const { showModal, isLoading } = this.state;
 
-        const { isLoading, errorMsg } = this.state;
+        const { hits, isLoading, errorMsg } = this.state;
         return (
-            <div>
-                <div className="main-section">
-                    <Searchbar onSubmit={this.handleFormSubmit} />
-                    <ImageGallery images={this.state.hits} onClick={this.toggleModal} />
-                    {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-                    <div className="load-more">
-                        <button onClick={this.loadMore} className="btn-grad">
-                            {isLoading ? 'Loading...' : 'Load More'}
-                        </button>
-                    </div>
+            <div className="main-section">
+                <Searchbar onSubmit={this.handleFormSubmit} />
+                <ImageGallery images={hits} onClick={this.toggleModal} />
+                {errorMsg && <p className="errorMsg">{errorMsg}</p>}
+                <div className="load-more">
+                    <button onClick={this.loadMore} className="btn-grad">
+                        {isLoading ? 'Loading...' : 'Load More'}
+                    </button>
                 </div>
             </div>
         );

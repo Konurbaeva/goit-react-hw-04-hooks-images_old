@@ -2,7 +2,7 @@ import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
 // import Loader from "./Loader/Loader";
-import Modal from "./Modal/Modal";
+// import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
 import Container from "./Container";
@@ -12,6 +12,8 @@ export class App extends Component {
         hits: [],
         searchQuery: '',
         showModal: true,
+        page: 1,
+        isLoading: false,
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -20,7 +22,7 @@ export class App extends Component {
     };
 
     componentDidUpdate(prevProps, prevState) {
-        const { searchQuery } = this.state;
+        const { searchQuery, page } = this.state;
 
         console.log('prevState', prevState)
         console.log('prevState.searchQuery', prevState.searchQuery)
@@ -30,7 +32,11 @@ export class App extends Component {
             getSearch(this.state.searchQuery)
                 .then(hits => this.setState({ hits }))
                 .catch(error => console.log(error));
+            if (prevState.page !== page) {
+                this.loadMore();
+            }
         }
+
     }
 
     handleModalDialog = () => {
@@ -44,16 +50,34 @@ export class App extends Component {
         }));
     };
 
+    loadMore = () => {
+        this.setState((prevState) => ({
+            page: prevState.page + 1
+        }));
+    };
+
     render() {
-        const { showModal } = this.state;
+        // const { showModal, isLoading } = this.state;
+
+        const { isLoading } = this.state;
         return (
             <div>
                 <Container>
-                    {showModal && (
+                    {/* {showModal && (
                         <Modal onClose={this.toggleModal}>
                             <Searchbar onSubmit={this.handleFormSubmit} />
                             <ImageGallery images={this.state.hits} onClick={this.toggleModal} /></Modal>
-                    )} </Container>
+                            
+                    )}  */}
+
+                    <Searchbar onSubmit={this.handleFormSubmit} />
+                    <ImageGallery images={this.state.hits} onClick={this.toggleModal} />
+                    <div className="load-more">
+                        <button onClick={this.loadMore} className="btn-grad">
+                            {isLoading ? 'Loading...' : 'Load More'}
+                        </button>
+                    </div>
+                </Container>
             </div>
         );
     }

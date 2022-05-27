@@ -2,9 +2,10 @@ import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
 // import Loader from "./Loader/Loader";
-// import Modal from "./Modal/Modal";
+import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
+// import { Modal } from "./Modal";
 
 export class App extends Component {
     state = {
@@ -14,6 +15,7 @@ export class App extends Component {
         page: 1,
         isLoading: false,
         errorMsg: '',
+        per_page: 10,
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -26,16 +28,16 @@ export class App extends Component {
         const nextPage = this.state.page;
 
         if (prevPage !== nextPage) {
-            this.loadUsers();
+            this.loadResults();
         }
     }
 
-    loadUsers = () => {
-        const { page } = this.state;
+    loadResults = () => {
+        const { page, per_page } = this.state;
 
         this.setState({ isLoading: true });
 
-        getSearch(this.state.searchQuery, page)
+        getSearch(this.state.searchQuery, page, per_page)
             .then((hits) => {
                 this.setState({ hits: hits, errorMsg: '' });
             })
@@ -69,11 +71,18 @@ export class App extends Component {
 
 
     render() {
-        // const { showModal, isLoading } = this.state;
 
-        const { hits, isLoading, errorMsg } = this.state;
+        const { showModal, searchQuery, hits, isLoading, errorMsg } = this.state;
         return (
             <div className="main-section">
+
+                {showModal && (
+                    <Modal
+                        largeImageURL={hits.largeImageURL}
+                        onClose={this.toggleModal}
+                        description={searchQuery}
+                    />
+                )}
                 <Searchbar onSubmit={this.handleFormSubmit} />
                 <ImageGallery images={hits} onClick={this.toggleModal} />
                 {errorMsg && <p className="errorMsg">{errorMsg}</p>}

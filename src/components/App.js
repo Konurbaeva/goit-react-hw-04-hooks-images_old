@@ -10,6 +10,7 @@ export class App extends Component {
     state = {
         hits: [],
         searchQuery: '',
+        showModal: false,
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -17,22 +18,55 @@ export class App extends Component {
         this.setState({ searchQuery: queryFromSearchbar });
     };
 
-    componentDidUpdate(prevState) {
+    // componentDidUpdate(prevState) {
+    //     const { searchQuery } = this.state;
+
+    //     console.log('prevState', prevState)
+    //     console.log('prevState.searchQuery', prevState.searchQuery)
+    //     console.log('searchQuery', searchQuery)
+
+    //     if (prevState.searchQuery !== searchQuery) {
+
+    //         getSearch(this.state.searchQuery)
+    //         //    .then(hits => this.setState({ hits }))
+    //     }
+    // }
+
+    componentDidUpdate(prevProps, prevState) {
         const { searchQuery } = this.state;
 
+        console.log('prevState', prevState)
+        console.log('prevState.searchQuery', prevState.searchQuery)
+        console.log('searchQuery', searchQuery)
+
         if (prevState.searchQuery !== searchQuery) {
-
-            const hitsResults = getSearch(this.state.searchQuery)
-            // .then(response => this.setState({ hits: response }))
-
-            console.log(hitsResults);
+            setTimeout(() => {
+                getSearch(this.state.searchQuery)
+                    .then(hits => this.setState({ hits }))
+                    .catch(error => console.log(error));
+            }, 3000);
         }
     }
 
-    render() {
 
+    toggleModal = () => {
+        this.setState(({ showModal }) => ({
+            showModal: !showModal,
+        }));
+    };
+
+    render() {
+        const { showModal } = this.state;
         return (
             <div>
+                {/* {showModal && (
+                    <Modal onClose={this.toggleModal}>
+                        <style>{'body { background-color: teal; }'}</style>
+                        <Searchbar onSubmit={this.handleFormSubmit} />
+                        <ImageGallery images={this.state.hits} />
+                    </Modal>
+                )} */}
+
                 <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
                 <ImageGallery images={this.state.hits} />

@@ -5,7 +5,6 @@ import Searchbar from "./Searchbar/Searchbar";
 // import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
-import Container from "./Container";
 
 export class App extends Component {
     state = {

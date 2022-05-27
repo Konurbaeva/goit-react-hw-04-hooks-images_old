@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import { createPortal } from 'react-dom';
+// import { createPortal } from 'react-dom';
 import './Modal.module.css';
 
-// function Modal({ onClose }) {
-//     return (<div className="overlay">
-//         <div className="modal" onClose={onClose}>
-//             <img src="" alt="" />
-//         </div>
-//     </div>);
-// }
-const modalRoot = document.querySelector('#modal-root');
+// const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component {
     componentDidMount() {
@@ -36,12 +29,21 @@ export default class Modal extends Component {
         }
     };
 
+    // render() {
+    //     return createPortal(
+    //         <div className="Modal__backdrop" onClick={this.handleBackdropClick}>
+    //             <div className="Modal__content">{this.props.children}</div>
+    //         </div>,
+    //         modalRoot,
+    //     );
+    // }
+
+
     render() {
-        return createPortal(
+        return (
             <div className="Modal__backdrop" onClick={this.handleBackdropClick}>
                 <div className="Modal__content">{this.props.children}</div>
-            </div>,
-            modalRoot,
+            </div>
         );
     }
 }

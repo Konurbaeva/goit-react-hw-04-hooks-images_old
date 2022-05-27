@@ -2,15 +2,16 @@ import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
 // import Loader from "./Loader/Loader";
-// import Modal from "./Modal/Modal";
+import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
+import Container from "./Container";
 
 export class App extends Component {
     state = {
         hits: [],
         searchQuery: '',
-        showModal: false,
+        showModal: true,
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -48,6 +49,10 @@ export class App extends Component {
         }
     }
 
+    handleModalDialog = () => {
+        this.toggleModal()
+        console.log("cliked");
+    };
 
     toggleModal = () => {
         this.setState(({ showModal }) => ({
@@ -59,6 +64,10 @@ export class App extends Component {
         const { showModal } = this.state;
         return (
             <div>
+                <Container>
+                    {showModal && (
+                        <Modal onClose={this.toggleModal} />
+                    )} </Container>
                 {/* {showModal && (
                     <Modal onClose={this.toggleModal}>
                         <style>{'body { background-color: teal; }'}</style>
@@ -67,9 +76,9 @@ export class App extends Component {
                     </Modal>
                 )} */}
 
-                <style>{'body { background-color: teal; }'}</style>
+                {/* <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
-                <ImageGallery images={this.state.hits} />
+                <ImageGallery images={this.state.hits} /> */}
             </div>
         );
     }

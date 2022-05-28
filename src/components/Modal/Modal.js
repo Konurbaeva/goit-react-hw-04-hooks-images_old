@@ -29,21 +29,11 @@ export default class Modal extends Component {
         }
     };
 
-    // render() {
-    //     return createPortal(
-    //         <div className="Modal__backdrop" onClick={this.handleBackdropClick}>
-    //             <div className="Modal__content">{this.props.children}</div>
-    //         </div>,
-    //         modalRoot,
-    //     );
-    // }
-
-
     render() {
         return (
-            <div className="Modal__backdrop">
-                <div className="Modal__content">{this.props.children}</div>
-            </div>
+            <li className="modal" >
+                <img src={this.props.largeImageURL} alt={this.props.description} />
+            </li>
         );
     }
 }

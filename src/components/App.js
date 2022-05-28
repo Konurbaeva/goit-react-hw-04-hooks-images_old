@@ -2,7 +2,7 @@ import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
 // import Loader from "./Loader/Loader";
-// import Modal from "./Modal/Modal";
+import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
 
@@ -69,7 +69,7 @@ export class App extends Component {
     };
 
     render() {
-        const { hits, isLoading } = this.state;
+        const { hits, isLoading, showModal } = this.state;
         return (
             <div>
                 {/* {showModal && (
@@ -82,7 +82,9 @@ export class App extends Component {
 
                 <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
-                <ImageGallery images={hits} />
+                {hits && <ImageGallery images={hits} />}
+                {showModal && <Modal onClose={this.toggleModal} />}
+                {/* <img src={this.props.largeImageURL} alt={this.props.description} /> */}
                 <div className="load-more">
                     <button onClick={this.loadMore} className="btn-grad">
                         {isLoading ? 'Loading...' : 'Load More'}

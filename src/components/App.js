@@ -10,10 +10,11 @@ export class App extends Component {
     state = {
         hits: [],
         searchQuery: '',
+        page: 1,
         currentPage: 1,
-        page: 0,
         showModal: false,
         isLoading: false,
+        totalHits: 0,
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -34,16 +35,23 @@ export class App extends Component {
         console.log('currentQuery ', currentQuery)
 
         if (prevQuery !== currentQuery) {
-            // getSearch(currentQuery)
-            //     .then(hits => this.setState({ hits }))
-            //     .catch(error => console.log(error));
+            this.setState({ isLoading: true, hits: [] });
+            // getSearch(currentQuery, currentPage)
+            //     .then(hits => console.log(JSON.stringify(hits)))
 
             getSearch(currentQuery)
-                .then(hits => console.log('hits: ' + JSON.stringify(hits)))
+                .then(hits => this.setState({ hits }))
         }
     }
 
 
+    handleSearch = () => {
+        // getSearch(currentQuery)
+        //     .then(hits => this.setState({ hits }))
+        //     .catch(error => console.log(error));
+        // getSearch(currentQuery, currentPage)
+        //     .then(hits => console.log(JSON.stringify(hits)))
+    }
 
     toggleModal = () => {
         this.setState(({ showModal }) => ({

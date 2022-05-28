@@ -10,7 +10,8 @@ export class App extends Component {
     state = {
         hits: [],
         searchQuery: '',
-        page: 1,
+        currentPage: 1,
+        page: 0,
         showModal: false,
         isLoading: false,
     };
@@ -22,22 +23,27 @@ export class App extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const prevPage = prevState.page;
-        const nextPage = this.state.page;
+        const currentPage = this.state.currentPage;
         const prevQuery = prevState.searchQuery;
-        const nextQuery = this.state.searchQuery;
+        const currentQuery = this.state.searchQuery;
 
         console.log('prevProps ', prevProps)
         console.log('prevPage ', prevPage)
-        console.log('nextPage ', nextPage)
+        console.log('currentPage ', currentPage)
         console.log('prevQuery ', prevQuery)
-        console.log('nextQuery ', nextQuery)
+        console.log('currentQuery ', currentQuery)
 
-        if (prevQuery !== nextQuery) {
-            getSearch(nextQuery)
-                .then(hits => this.setState({ hits }))
-                .catch(error => console.log(error));
+        if (prevQuery !== currentQuery) {
+            // getSearch(currentQuery)
+            //     .then(hits => this.setState({ hits }))
+            //     .catch(error => console.log(error));
+
+            getSearch(currentQuery)
+                .then(hits => console.log('hits: ' + JSON.stringify(hits)))
         }
     }
+
+
 
     toggleModal = () => {
         this.setState(({ showModal }) => ({
@@ -47,7 +53,7 @@ export class App extends Component {
 
     loadMore = () => {
         this.setState((prevState) => ({
-            page: prevState.page + 1
+            currentPage: prevState.currentPage + 1
         }));
     };
 

@@ -10,7 +10,9 @@ export class App extends Component {
     state = {
         hits: [],
         searchQuery: '',
+        page: 1,
         showModal: false,
+        isLoading: false,
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -31,14 +33,11 @@ export class App extends Component {
         console.log('nextQuery ', nextQuery)
 
         if (prevQuery !== nextQuery) {
-            setTimeout(() => {
-                getSearch(nextQuery)
-                    .then(hits => this.setState({ hits }))
-                    .catch(error => console.log(error));
-            }, 3000);
+            getSearch(nextQuery)
+                .then(hits => this.setState({ hits }))
+                .catch(error => console.log(error));
         }
     }
-
 
     toggleModal = () => {
         this.setState(({ showModal }) => ({
@@ -46,8 +45,14 @@ export class App extends Component {
         }));
     };
 
+    loadMore = () => {
+        this.setState((prevState) => ({
+            page: prevState.page + 1
+        }));
+    };
+
     render() {
-        const { hits } = this.state;
+        const { hits, isLoading } = this.state;
         return (
             <div>
                 {/* {showModal && (
@@ -61,6 +66,11 @@ export class App extends Component {
                 <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
                 <ImageGallery images={hits} />
+                <div className="load-more">
+                    <button onClick={this.loadMore} className="btn-grad">
+                        {isLoading ? 'Loading...' : 'Load More'}
+                    </button>
+                </div>
             </div>
         );
     }

@@ -15,43 +15,46 @@ export class App extends Component {
         showModal: false,
         isLoading: false,
         totalHits: 0,
+        errorMsg: '',
     };
 
     handleFormSubmit = queryFromSearchbar => {
         console.log('queryFromSearchbar ', queryFromSearchbar)
-        this.setState({ searchQuery: queryFromSearchbar });
+        this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
     };
 
     componentDidUpdate(prevProps, prevState) {
         const prevPage = prevState.page;
-        const currentPage = this.state.currentPage;
-        const prevQuery = prevState.searchQuery;
-        const currentQuery = this.state.searchQuery;
+        const nextPage = this.state.page;
+        const prevsearchQuery = prevState.searchQuery;
+        const searchQuery = this.state.searchQuery;
 
-        console.log('prevProps ', prevProps)
-        console.log('prevPage ', prevPage)
-        console.log('currentPage ', currentPage)
-        console.log('prevQuery ', prevQuery)
-        console.log('currentQuery ', currentQuery)
-
-        if (prevQuery !== currentQuery) {
-            this.setState({ isLoading: true, hits: [] });
-            // getSearch(currentQuery, currentPage)
-            //     .then(hits => console.log(JSON.stringify(hits)))
-
-            getSearch(currentQuery)
-                .then(hits => this.setState({ hits }))
+        if (prevPage !== nextPage || prevsearchQuery !== searchQuery) {
+            this.loadResults();
         }
     }
 
+    loadResults = () => {
+        const { page, per_page } = this.state;
 
-    handleSearch = () => {
-        // getSearch(currentQuery)
-        //     .then(hits => this.setState({ hits }))
-        //     .catch(error => console.log(error));
-        // getSearch(currentQuery, currentPage)
-        //     .then(hits => console.log(JSON.stringify(hits)))
-    }
+        this.setState({ isLoading: true });
+
+        getSearch(this.state.searchQuery, per_page, page)
+            .then((hits) => {
+                this.setState(prevState => ({
+                    hits: [...prevState.hits, ...hits], errorMsg: ''
+                }))
+            })
+            .catch((error) =>
+                this.setState({
+                    errorMsg: 'Error while loading data. Try again later.'
+                })
+            )
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
+    };
+
 
     toggleModal = () => {
         this.setState(({ showModal }) => ({
@@ -61,7 +64,7 @@ export class App extends Component {
 
     loadMore = () => {
         this.setState((prevState) => ({
-            currentPage: prevState.currentPage + 1
+            page: prevState.page + 1
         }));
     };
 

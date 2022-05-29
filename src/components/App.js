@@ -90,7 +90,7 @@ export class App extends Component {
                 {showModal && <Modal onClose={this.toggleModal} />}
                 {/* <img src={this.props.largeImageURL} alt={this.props.description} /> */}
                 <div className="load-more">
-                    <button onClick={this.loadMore} className="btn-grad">
+                    <button onClick={this.loadMore}>
                         {isLoading ? 'Loading...' : 'Load More'}
                     </button>
                 </div>

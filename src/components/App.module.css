@@ -3,4 +3,9 @@
     grid-template-columns: 1fr;
     padding-bottom: 24px;
     text-align: center;
+   
+  }
+
+  body {
+    background-color:teal;
   }

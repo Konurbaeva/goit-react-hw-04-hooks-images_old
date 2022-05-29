@@ -8,7 +8,8 @@ export const data = [
         props: {
             color: "#0ead69",
             height: 100,
-            width: 110
+            width: 110,
+            textAlign: 'center',
         },
         name: "RevolvingDot"
     }

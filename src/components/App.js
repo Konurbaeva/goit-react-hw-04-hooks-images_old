@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
-// import Loader from "./Loader/Loader";
+import Loader from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 
 
@@ -86,7 +86,6 @@ export class App extends Component {
         const { hits, isLoading, showModal, modalImage, searchQuery } = this.state;
         return (
             <div className={styles.App}>
-                <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
                 {hits && (
                     <ImageGallery images={hits} openModal={this.zoomImage} />
@@ -101,6 +100,7 @@ export class App extends Component {
                 )}
 
                 <LoadMore isLoading={isLoading} loadMore={this.loadMore} />
+                {isLoading && <Loader />}
             </div>
         );
     }

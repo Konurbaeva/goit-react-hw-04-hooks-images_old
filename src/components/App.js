@@ -101,12 +101,6 @@ export class App extends Component {
                 )}
 
                 <LoadMore isLoading={isLoading} loadMore={this.loadMore} />
-
-                {/* <div className="load-more">
-                    <button onClick={this.loadMore}>
-                        {isLoading ? 'Loading...' : 'Load More'}
-                    </button>
-                </div> */}
             </div>
         );
     }

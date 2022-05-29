@@ -57,11 +57,16 @@ export class App extends Component {
     };
 
 
-    toggleModal = () => {
+    openModal = () => {
         this.setState(({ showModal }) => ({
             showModal: !showModal,
         }));
+        document.body.style.overflow = this.state.showModal ? 'auto' : 'hidden';
     };
+
+    openLargeModal = () => {
+        console.log('large modal opened');
+    }
 
     loadMore = () => {
         this.setState((prevState) => ({
@@ -69,16 +74,13 @@ export class App extends Component {
         }));
     };
 
-    openLargeModal = () => {
-        console.log('large modal opened');
-    }
 
     render() {
         const { hits, isLoading, showModal } = this.state;
         return (
             <div>
                 {/* {showModal && (
-                    <Modal onClose={this.toggleModal}>
+                    <Modal onClose={this.openModal}>
                         <style>{'body { background-color: teal; }'}</style>
                         <Searchbar onSubmit={this.handleFormSubmit} />
                         <ImageGallery images={hits} />
@@ -88,14 +90,13 @@ export class App extends Component {
                 <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
                 {hits && <ImageGallery images={hits} onClick={this.openLargeModal} />}
-                {showModal && <Modal onClose={this.toggleModal} />}
+                {showModal && <Modal onClose={this.openModal} />}
                 {/* <img src={this.props.largeImageURL} alt={this.props.description} /> */}
                 <div className="load-more">
                     <button onClick={this.loadMore}>
                         {isLoading ? 'Loading...' : 'Load More'}
                     </button>
                 </div>
-                {hits.length > 0 ? <ImageGallery images={hits} onClick={this.openLargeModal} /> : 'No results'}
             </div>
         );
     }

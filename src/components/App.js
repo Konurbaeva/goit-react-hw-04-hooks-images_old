@@ -6,7 +6,9 @@ import Searchbar from "./Searchbar/Searchbar";
 // import Loader from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 
+
 import { getSearch } from "services/api"
+import { LoadMore } from './LoadMore';
 
 export class App extends Component {
     state = {
@@ -97,11 +99,14 @@ export class App extends Component {
                         description={searchQuery}
                     />
                 )}
-                <div className="load-more">
+
+                <LoadMore isLoading={isLoading} loadMore={this.loadMore} />
+
+                {/* <div className="load-more">
                     <button onClick={this.loadMore}>
                         {isLoading ? 'Loading...' : 'Load More'}
                     </button>
-                </div>
+                </div> */}
             </div>
         );
     }

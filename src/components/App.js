@@ -16,6 +16,7 @@ export class App extends Component {
         isLoading: false,
         totalHits: 0,
         errorMsg: '',
+        per_page: 5,
     };
 
     handleFormSubmit = queryFromSearchbar => {

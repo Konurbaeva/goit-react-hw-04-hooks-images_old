@@ -1,16 +1,20 @@
+
 import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
+import styles from './ImageGallery.module.css'
 
-
-function ImageGallery({ hits }) {
-
-    return (<ul className="gallery">
-        {hits.map(hit => (
-            <>
-                <ImageGalleryItem src={hit.webformatURL} />
-            </>
-        ))}
-    </ul>);
+function ImageGallery({ images, openModal }) {
+    return (
+        <ul className={styles.ImageGalleryItem}>
+            {images.map(({ id, webformatURL, largeImageURL, tags }) => (
+                <ImageGalleryItem
+                    key={id}
+                    webImage={webformatURL}
+                    description={tags}
+                    openModal={() => openModal(largeImageURL)}
+                />
+            ))}
+        </ul>
+    );
 }
-
 
 export default ImageGallery;

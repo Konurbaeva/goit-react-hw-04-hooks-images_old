@@ -1,58 +1,112 @@
+import styles from './App.module.css';
+
 import { Component } from "react";
-import axios from "axios";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
-import Loader from "./Loader/Loader";
+// import Loader from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 
 
-// FULL https://pixabay.com/api/?key=25748459-63f23aee85add1030efa422f3&q=cat&image_type=photo&orientation=horizontal&per_page=12
-axios.defaults.baseURL = "https://pixabay.com/api/"
-const API_KEY = "25748459-63f23aee85add1030efa422f3"
-const query = "cat";
-
+import { getSearch } from "services/api"
+import { LoadMore } from './LoadMore';
 
 export class App extends Component {
     state = {
         hits: [],
-        value: '',
+        searchQuery: '',
+        page: 1,
+        currentPage: 1,
+        showModal: false,
         isLoading: false,
-        showModal: true,
+        totalHits: 0,
+        errorMsg: '',
+        per_page: 5,
+        modalImage: null,
     };
 
-    async componentDidMount() {
-        const response = await axios.get(`?q=${query}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`);
+    handleFormSubmit = queryFromSearchbar => {
+        console.log('queryFromSearchbar ', queryFromSearchbar)
+        this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
+    };
 
-        this.setState({ hits: response.data.hits });
+    componentDidUpdate(prevProps, prevState) {
+        const prevPage = prevState.page;
+        const nextPage = this.state.page;
+        const prevsearchQuery = prevState.searchQuery;
+        const searchQuery = this.state.searchQuery;
+
+        if (prevPage !== nextPage || prevsearchQuery !== searchQuery) {
+            this.loadResults();
+        }
     }
 
-    async handleChange(e) {
-        this.setState({ value: e.target.value });
-    }
+    loadResults = () => {
+        const { page, per_page } = this.state;
 
-    async handleSubmit(e) {
-        console.log('A name was submitted: ' + this.state.value);
-        e.preventDefault();
-    }
+        this.setState({ isLoading: true });
 
-    async toggleModal(e) {
+        getSearch(this.state.searchQuery, per_page, page)
+            .then((hits) => {
+                this.setState(prevState => ({
+                    hits: [...prevState.hits, ...hits], errorMsg: ''
+                }))
+            })
+            .catch((error) =>
+                this.setState({
+                    errorMsg: 'Error while loading data. Try again later.'
+                })
+            )
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
+    };
+
+
+    toggleModal = () => {
         this.setState(({ showModal }) => ({
             showModal: !showModal,
         }));
-    }
+    };
+
+    zoomImage = image => {
+        this.toggleModal();
+        this.setState({
+            modalImage: image,
+        });
+    };
+
+    loadMore = () => {
+        this.setState((prevState) => ({
+            page: prevState.page + 1
+        }));
+    };
+
 
     render() {
-        const { isLoading, showModal } = this.state;
-
+        const { hits, isLoading, showModal, modalImage, searchQuery } = this.state;
         return (
-            <div>
-                {/* {showModal && <Modal onClose={this.toggleModal} />} */}
+            <div className={styles.App}>
+                <style>{'body { background-color: teal; }'}</style>
+                <Searchbar onSubmit={this.handleFormSubmit} />
+                {hits && (
+                    <ImageGallery images={hits} openModal={this.zoomImage} />
+                )}
 
-                {showModal && <Modal />}
+                {showModal && (
+                    <Modal
+                        largeImageURL={modalImage}
+                        onClose={this.toggleModal}
+                        description={searchQuery}
+                    />
+                )}
 
-                <Searchbar onSubmit={this.handleSubmit} />
-                <ImageGallery hits={this.state.hits} />
-                {isLoading ? <p>Loading...</p> : <Loader />}
+                <LoadMore isLoading={isLoading} loadMore={this.loadMore} />
+
+                {/* <div className="load-more">
+                    <button onClick={this.loadMore}>
+                        {isLoading ? 'Loading...' : 'Load More'}
+                    </button>
+                </div> */}
             </div>
         );
     }

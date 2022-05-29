@@ -1,8 +1,17 @@
-function ImageGalleryItem({ src }) {
+import styles from './ImageGalleryItem.module.css';
+
+function ImageGalleryItem({ webImage, openModal, description }) {
     return (
-        <li className="gallery-item">
-            <img src={src} alt="" />
-        </li>);
+        <li className={styles.ImageGalleryItem}>
+            <img
+                src={webImage}
+                alt={description}
+                onClick={openModal}
+            />
+        </li>
+    );
 }
+
+
 
 export default ImageGalleryItem;

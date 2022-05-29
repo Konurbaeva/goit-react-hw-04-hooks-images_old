@@ -25,7 +25,6 @@ export class App extends Component {
     };
 
     handleFormSubmit = queryFromSearchbar => {
-        console.log('queryFromSearchbar ', queryFromSearchbar)
         this.setState({ searchQuery: queryFromSearchbar, hits: [], page: 1 });
     };
 

@@ -18,7 +18,7 @@ export default ImageGalleryItem;
 
 
 ImageGalleryItem.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
     webImage: PropTypes.string.isRequired,
     openModal: PropTypes.func.isRequired,
     description: PropTypes.string.isRequired,

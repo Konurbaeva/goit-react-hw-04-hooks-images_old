@@ -1,4 +1,5 @@
 import styles from './ImageGalleryItem.module.css';
+import PropTypes from 'prop-types';
 
 function ImageGalleryItem({ webImage, openModal, description }) {
     return (
@@ -13,6 +14,12 @@ function ImageGalleryItem({ webImage, openModal, description }) {
     );
 }
 
-
-
 export default ImageGalleryItem;
+
+
+ImageGalleryItem.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    webImage: PropTypes.string.isRequired,
+    openModal: PropTypes.func.isRequired,
+    description: PropTypes.string.isRequired,
+};

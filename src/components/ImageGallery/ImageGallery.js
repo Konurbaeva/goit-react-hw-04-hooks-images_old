@@ -1,16 +1,16 @@
 
 import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 
-function ImageGallery({ images, onClick }) {
+function ImageGallery({ images, openModal }) {
 
     return (
         <ul>
-            {images.map(({ id, webformatURL, tags }) => (
+            {images.map(({ id, webformatURL, largeImageURL, tags }) => (
                 <ImageGalleryItem
                     key={id}
                     webImage={webformatURL}
                     description={tags}
-                    onClick={onClick}
+                    openModal={() => openModal(largeImageURL)}
                 />
             ))}
         </ul>

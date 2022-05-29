@@ -1,7 +1,7 @@
 import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
-// import Loader from "./Loader/Loader";
+import Loader from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
@@ -17,6 +17,7 @@ export class App extends Component {
         totalHits: 0,
         errorMsg: '',
         per_page: 5,
+        modalImage: null,
     };
 
     handleFormSubmit = queryFromSearchbar => {
@@ -57,16 +58,19 @@ export class App extends Component {
     };
 
 
-    openModal = () => {
+    toggleModal = () => {
         this.setState(({ showModal }) => ({
             showModal: !showModal,
         }));
         document.body.style.overflow = this.state.showModal ? 'auto' : 'hidden';
     };
 
-    openLargeModal = () => {
-        console.log('large modal opened');
-    }
+    zoomImage = image => {
+        this.toggleModal();
+        this.setState({
+            modalImage: image,
+        });
+    };
 
     loadMore = () => {
         this.setState((prevState) => ({
@@ -76,22 +80,22 @@ export class App extends Component {
 
 
     render() {
-        const { hits, isLoading, showModal } = this.state;
+        const { hits, isLoading, showModal, modalImage, searchQuery } = this.state;
         return (
             <div>
-                {/* {showModal && (
-                    <Modal onClose={this.openModal}>
-                        <style>{'body { background-color: teal; }'}</style>
-                        <Searchbar onSubmit={this.handleFormSubmit} />
-                        <ImageGallery images={hits} />
-                    </Modal>
-                )} */}
-
                 <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
-                {hits && <ImageGallery images={hits} onClick={this.openLargeModal} />}
-                {showModal && <Modal onClose={this.openModal} />}
-                {/* <img src={this.props.largeImageURL} alt={this.props.description} /> */}
+                {hits && (
+                    <ImageGallery images={hits} openModal={this.zoomImage} />
+                )}
+
+                {showModal && (
+                    <Modal
+                        largeImageURL={modalImage}
+                        onClose={this.toggleModal}
+                        description={searchQuery}
+                    />
+                )}
                 <div className="load-more">
                     <button onClick={this.loadMore}>
                         {isLoading ? 'Loading...' : 'Load More'}

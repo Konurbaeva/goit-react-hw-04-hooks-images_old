@@ -1,16 +1,13 @@
-// function ImageGalleryItem({ src }) {
-//     return (
-//         <li className="gallery-item">
-//             <img src={src} alt="" />
-//         </li>);
-// }
-
-function ImageGalleryItem({ webImage, description, onClick }) {
-
+function ImageGalleryItem({ webImage, openModal, description }) {
     return (
-        <li className="gallery-item" >
-            <img src={webImage} alt={description} onClick={onClick} />
-        </li>);
+        <li>
+            <img
+                src={webImage}
+                alt={description}
+                onClick={openModal}
+            />
+        </li>
+    );
 }
 
 

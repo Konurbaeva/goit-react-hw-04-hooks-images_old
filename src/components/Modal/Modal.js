@@ -31,9 +31,15 @@ export default class Modal extends Component {
 
     render() {
         return (
-            <li className="modal" >
-                <img src={this.props.largeImageURL} alt={this.props.description} />
-            </li>
+            <div onClick={this.props.onClose}>
+                <div>
+                    <img
+
+                        src={this.props.largeImageURL}
+                        alt={this.props.description}
+                    />
+                </div>
+            </div>
         );
     }
 }

@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 // import { createPortal } from 'react-dom';
-import './Modal.module.css';
+import styles from './Modal.module.css';
 
 // const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component {
     componentDidMount() {
-        console.log('Modal componentDidMount');
         window.addEventListener('keydown', this.handleKeyDown);
     }
 
     componentWillUnmount() {
-        console.log('Modal componentWillUnmount');
         window.removeEventListener('keydown', this.handleKeyDown);
     }
 
     handleKeyDown = e => {
         if (e.code === 'Escape') {
-            console.log('Нажали ESC, нужно закрыть модалку');
-
             this.props.onClose();
         }
     };
@@ -31,10 +27,10 @@ export default class Modal extends Component {
 
     render() {
         return (
-            <div onClick={this.props.onClose}>
+            <div className={styles.Overlay} onClick={this.props.onClose}>
                 <div>
                     <img
-
+                        className={styles.ModalImage}
                         src={this.props.largeImageURL}
                         alt={this.props.description}
                     />

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
-import Loader from "./Loader/Loader";
+// import Loader from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 
 import { getSearch } from "services/api"
@@ -62,7 +62,6 @@ export class App extends Component {
         this.setState(({ showModal }) => ({
             showModal: !showModal,
         }));
-        document.body.style.overflow = this.state.showModal ? 'auto' : 'hidden';
     };
 
     zoomImage = image => {

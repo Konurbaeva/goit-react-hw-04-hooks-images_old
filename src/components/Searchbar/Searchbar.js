@@ -28,11 +28,11 @@ class Searchbar extends Component {
 
     render() {
         return (
-            <div className={style.container}>
+            <div className={style.Searchbar}>
                 <header className="searchbar">
-                    <form className="form" onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit} className={style.SearchForm}>
                         <input
-                            className="input"
+                            className={style.SearchForm_input}
                             type="text"
                             autoComplete="off"
                             autoFocus
@@ -40,8 +40,8 @@ class Searchbar extends Component {
                             value={this.state.searchQuery}
                             onChange={this.handleChange}
                         />
-                        <button type="submit" className="button">
-                            <span className="button-label">Search</span>
+                        <button type="submit" className={style.SearchForm_button}>
+                            <span className={style.SearchForm_button_label} >Search</span>
                         </button>
                     </form>
                 </header>

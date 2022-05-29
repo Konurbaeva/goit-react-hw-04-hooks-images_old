@@ -3,7 +3,6 @@ import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 import styles from './ImageGallery.module.css'
 
 function ImageGallery({ images, openModal }) {
-
     return (
         <ul className={styles.ImageGalleryItem}>
             {images.map(({ id, webformatURL, largeImageURL, tags }) => (

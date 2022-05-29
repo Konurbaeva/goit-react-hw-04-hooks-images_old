@@ -5,10 +5,11 @@
 //         </li>);
 // }
 
-function ImageGalleryItem({ webImage, description }) {
+function ImageGalleryItem({ webImage, description, onClick }) {
+
     return (
         <li className="gallery-item" >
-            <img src={webImage} alt={description} />
+            <img src={webImage} alt={description} onClick={onClick} />
         </li>);
 }
 

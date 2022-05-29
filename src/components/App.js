@@ -68,6 +68,10 @@ export class App extends Component {
         }));
     };
 
+    openLargeModal = () => {
+        console.log('large modal opened');
+    }
+
     render() {
         const { hits, isLoading, showModal } = this.state;
         return (
@@ -82,7 +86,7 @@ export class App extends Component {
 
                 <style>{'body { background-color: teal; }'}</style>
                 <Searchbar onSubmit={this.handleFormSubmit} />
-                {hits && <ImageGallery images={hits} />}
+                {hits && <ImageGallery images={hits} onClick={this.openLargeModal} />}
                 {showModal && <Modal onClose={this.toggleModal} />}
                 {/* <img src={this.props.largeImageURL} alt={this.props.description} /> */}
                 <div className="load-more">
@@ -90,6 +94,7 @@ export class App extends Component {
                         {isLoading ? 'Loading...' : 'Load More'}
                     </button>
                 </div>
+                {hits.length > 0 ? <ImageGallery images={hits} onClick={this.openLargeModal} /> : 'No results'}
             </div>
         );
     }

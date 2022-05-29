@@ -1,7 +1,7 @@
 
 import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 
-function ImageGallery({ images }) {
+function ImageGallery({ images, onClick }) {
 
     return (
         <ul>
@@ -10,6 +10,7 @@ function ImageGallery({ images }) {
                     key={id}
                     webImage={webformatURL}
                     description={tags}
+                    onClick={onClick}
                 />
             ))}
         </ul>

@@ -1,4 +1,5 @@
 import styles from './LoadMore.module.css';
+import PropTypes from 'prop-types';
 
 export function LoadMore({ isLoading, loadMore }) {
     return (<div>
@@ -7,3 +8,8 @@ export function LoadMore({ isLoading, loadMore }) {
         </button>
     </div>);
 }
+
+LoadMore.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    loadMore: PropTypes.func.isRequired,
+};

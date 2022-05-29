@@ -1,6 +1,7 @@
 
 import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 import styles from './ImageGallery.module.css'
+import PropTypes from 'prop-types';
 
 function ImageGallery({ images, openModal }) {
     return (
@@ -18,3 +19,9 @@ function ImageGallery({ images, openModal }) {
 }
 
 export default ImageGallery;
+
+
+ImageGallery.propTypes = {
+    images: PropTypes.string.isRequired,
+    openModal: PropTypes.func.isRequired,
+};

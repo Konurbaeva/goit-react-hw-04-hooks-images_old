@@ -1,6 +1,6 @@
 import { data } from "./model";
 
-function Loader() {
+export default function Loader() {
     return (
         <>
             {data.map((loader, index) => (
@@ -15,5 +15,3 @@ function Loader() {
         </>
     );
 }
-
-export default Loader;

@@ -1,7 +1,7 @@
 import styles from './LoadMore.module.css';
 import PropTypes from 'prop-types';
 
-export function LoadMore({ isLoading, loadMore }) {
+export default function LoadMore({ isLoading, loadMore }) {
     return (<div>
         <button onClick={loadMore} className={styles.Button}>
             {isLoading ? 'Loading...' : 'Load More'}

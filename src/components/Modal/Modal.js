@@ -22,7 +22,7 @@ export default function Modal() {
         }
     };
 
-    handleBackdropClick = event => {
+    const handleBackdropClick = event => {
         if (event.currentTarget === event.target) {
             this.props.onClose();
         }

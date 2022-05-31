@@ -4,35 +4,35 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 
-// export default function 
 export default function Searchbar() {
 
-    const [searchQuery, setSearchQuery] = useState('')
+    const [searchQuery, setSearchQuery] = useState('');
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (searchQuery.trim() === '') {
             toast.error('Введите имя');
             return;
         }
 
+        console.log('searchQuery: ', searchQuery);
         this.props.onSubmit(searchQuery);
-        this.reset();
+        reset();
     };
 
-    reset = () => {
-        this.setState({ searchQuery: '' });
+    const reset = () => {
         setSearchQuery('')
     };
 
-    handleChange = e => {
-        this.setState({ searchQuery: e.currentTarget.value });
+    const handleChange = e => {
+        //  setSearchQuery({ searchQuery: e.currentTarget.value })
+        setSearchQuery(e.currentTarget.value)
     };
 
     return (
         <div className={style.Searchbar}>
             <header className="searchbar">
-                <form onSubmit={this.handleSubmit} className={style.SearchForm}>
+                <form onSubmit={handleSubmit} className={style.SearchForm}>
                     <input
                         className={style.SearchForm_input}
                         type="text"
@@ -40,7 +40,7 @@ export default function Searchbar() {
                         autoFocus
                         placeholder="Search images and photos"
                         value={searchQuery}
-                        onChange={this.handleChange}
+                        onChange={handleChange}
                     />
                     <button type="submit" className={style.SearchForm_button}>
                         <span className={style.SearchForm_button_label} >Search</span>

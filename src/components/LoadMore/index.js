@@ -1,1 +1,1 @@
-export { LoadMore } from './LoadMore'
+export { default } from './LoadMore'

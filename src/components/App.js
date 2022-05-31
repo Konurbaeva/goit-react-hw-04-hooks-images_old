@@ -85,9 +85,11 @@ export default function App() {
     const zoomImage = image => {
         toggleModal();
 
-        setModalImage({
-            modalImage: image,
-        })
+        // The argument for setModalImage is not an object, it's just a new value
+        // setModalImage({
+        //     modalImage: image,
+        // })
+        setModalImage(image)
     };
 
     const loadMore = () => {

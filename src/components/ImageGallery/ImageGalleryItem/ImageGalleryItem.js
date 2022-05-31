@@ -1,7 +1,7 @@
 import styles from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
 
-function ImageGalleryItem({ webImage, openModal, description }) {
+export default function ImageGalleryItem({ webImage, openModal, description }) {
     return (
         <li className={styles.ImageGalleryItem}>
             <img
@@ -13,8 +13,6 @@ function ImageGalleryItem({ webImage, openModal, description }) {
         </li>
     );
 }
-
-export default ImageGalleryItem;
 
 
 ImageGalleryItem.propTypes = {

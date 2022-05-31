@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 
 // const modalRoot = document.querySelector('#modal-root');
+// Inline any this.props into the function declaration using object destructuring
 
-export default function Modal() {
-
+export default function Modal({ onClose, largeImageURL, description }) {
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown)
 
@@ -18,17 +18,17 @@ export default function Modal() {
 
     const handleKeyDown = e => {
         if (e.code === 'Escape') {
-            this.props.onClose();
+            onClose();
         }
     };
 
     return (
-        <div className={styles.Overlay} onClick={this.props.onClose}>
+        <div className={styles.Overlay} onClick={onClose}>
             <div>
                 <img
                     className={styles.ModalImage}
-                    src={this.props.largeImageURL}
-                    alt={this.props.description}
+                    src={largeImageURL}
+                    alt={description}
                 />
             </div>
         </div>

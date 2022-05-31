@@ -11,9 +11,9 @@ export default function Modal() {
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown)
 
-        return function cleanup() {
+        return () => {
             window.removeEventListener('keydown', handleKeyDown);
-        }
+        };
     })
 
     const handleKeyDown = e => {

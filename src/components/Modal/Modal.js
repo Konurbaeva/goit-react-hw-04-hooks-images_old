@@ -22,12 +22,6 @@ export default function Modal() {
         }
     };
 
-    const handleBackdropClick = event => {
-        if (event.currentTarget === event.target) {
-            this.props.onClose();
-        }
-    };
-
     return (
         <div className={styles.Overlay} onClick={this.props.onClose}>
             <div>

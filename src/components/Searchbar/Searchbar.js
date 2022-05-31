@@ -4,8 +4,7 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 
-export default function Searchbar() {
-
+export default function Searchbar({ onSubmit }) {
     const [searchQuery, setSearchQuery] = useState('');
 
     const handleSubmit = (e) => {
@@ -16,7 +15,7 @@ export default function Searchbar() {
         }
 
         console.log('searchQuery: ', searchQuery);
-        this.props.onSubmit(searchQuery);
+        onSubmit(searchQuery);
         reset();
     };
 

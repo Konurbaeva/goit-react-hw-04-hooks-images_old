@@ -6,7 +6,6 @@ import Searchbar from "./Searchbar/Searchbar";
 import Loader from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 
-
 import { getSearch } from "services/api"
 // import { LoadMore } from './LoadMore';
 import LoadMore from './LoadMore';
@@ -25,9 +24,10 @@ export default function App() {
     const [modalImage, setModalImage] = useState(null);
 
     const handleFormSubmit = queryFromSearchbar => {
-        setSearchQuery({ searchQuery: queryFromSearchbar });
-        setHits({ hits: [] })
-        setPage({ page: 1 })
+        // The argument for  setSearchQuery is not an object, it's just a new value
+        setSearchQuery(queryFromSearchbar);
+        setHits([])
+        setPage(1)
     };
 
     // componentDidUpdate(prevProps, prevState) {
